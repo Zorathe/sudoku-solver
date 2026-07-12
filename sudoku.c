@@ -7,14 +7,19 @@ int SIZE_COLUMNS = 9;
 
 int main(){
 	int ** puzzle;
-	Square *** sudoku;
+	int progress = 0;
+	Sudoku * sudoku;
 	puzzle = createPuzzle();
 	sudoku = setUpPuzzle(puzzle);
-	printPuzzle(sudoku);
-	checkPuzzle(sudoku);
-	printf("\n\n");
-	printPuzzle(sudoku);
+	printPuzzle(sudoku->squares);
+	while(UNSOLVED > 0){
+		progress = checkPuzzle(sudoku->squares, sudoku->boxes);
+		if(progress == 0){
+			printf("Failed to solve puzzle!\n\n");
+			break;
+		}
+/// 33 solved -> 81-33 = 48
+	}
+	printPuzzle(sudoku->squares);
 	return 0;
-
-
 }

@@ -1,6 +1,17 @@
 #include "sudoku.h"
+#include "row.h"
+#include "box.h"
 
-Square *** setUpPuzzle(int ** puzzle){
+Sudoku * createSudoku(Square *** squares, Box ** boxes){
+	Sudoku * sudoku;
+	sudoku = malloc(sizeof(Sudoku));
+
+	sudoku->squares = squares;
+	sudoku->boxes = boxes;
+	return sudoku;
+}
+
+Sudoku * setUpPuzzle(int ** puzzle){
 	Square *** sudoku;
 	Box ** boxes;
 	int i, j, x;
@@ -50,7 +61,7 @@ Square *** setUpPuzzle(int ** puzzle){
 			}
 		}
 	}
-	return sudoku;
+	return createSudoku(sudoku, boxes);
 }
 
 int updateSudoku(Square *** sudoku, int row, int column){
@@ -72,8 +83,8 @@ int updateSudoku(Square *** sudoku, int row, int column){
 	return 1;
 }
 
-int checkPuzzle(Square *** sudoku){
-	int i, j, x;
+int checkPuzzle(Square *** sudoku, Box ** boxes){
+	int i, j;
 
 	for(i = 0; i < SIZE_ROWS; i++){
 		for(j = 0; j < SIZE_COLUMNS; j++){
@@ -81,25 +92,30 @@ int checkPuzzle(Square *** sudoku){
 				solveSquare(sudoku[i][j]);
 				updateSudoku(sudoku, i ,j);
 				updateBoxes(sudoku, i, j);
+				return 1;
 			}
 		}
 	}
+	if(boxSingles(sudoku, boxes)){
+		return 1;
+	}
+	return checkRows(sudoku, boxes);
 }
 
 int ** createPuzzle(){
 	int ** puzzle;
 	int i, j;
-	int array[9][9] = {0, 1, 9,    0, 0, 2,    0, 0, 0,
-	                   4, 7, 9,    6, 9, 9,    0, 0, 1,
-	                   0, 0, 0,    4, 0, 0,    0, 9, 0,
+	int array[9][9] = {{0, 1, 9,    0, 0, 2,    0, 0, 0},
+	                   {4, 7, 0,    6, 9, 0,    0, 0, 1},
+	                   {0, 0, 0,    4, 0, 0,    0, 9, 0},
 
-	                   8, 9, 4,    5, 0, 7,    0, 0, 0,
-	                   0, 0, 0,    0, 0, 0,    0, 0, 0,
-	                   0, 0, 0,    2, 0, 1,    9, 5, 8,
+	                   {8, 9, 4,    5, 0, 7,    0, 0, 0},
+	                   {0, 0, 0,    0, 0, 0,    0, 0, 0},
+	                   {0, 0, 0,    2, 0, 1,    9, 5, 8},
 	        
-	                   0, 5, 0,    0, 0, 6,    0, 0, 0,
-	                   5, 0, 0,    0, 2, 8,    0, 7, 9,
-	                   0, 0, 0,    1, 0, 0,    8, 6, 0 };
+	                   {0, 5, 0,    0, 0, 6,    0, 0, 0},
+	                   {6, 0, 0,    0, 2, 8,    0, 7, 9},
+	                   {0, 0, 0,    1, 0, 0,    8, 6, 0} };
 
 	puzzle = (int**)malloc(sizeof(int*)*9);
 	for(i = 0; i < 9; i++){
