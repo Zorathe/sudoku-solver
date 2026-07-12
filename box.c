@@ -1,6 +1,6 @@
 #include "sudoku.h"
 
-BOx ** createBoxes(){
+Box ** createBoxes(){
 	int x, y;
 	Box ** boxes;
 	boxes = malloc(sizeof(Box*)*9);
@@ -23,8 +23,9 @@ int updateBoxes(Square *** sudoku, int row, int column){
 	int number = sudoku[row][column]->number;
 	Box * box;
 	box = sudoku[row][column]->box;
-	for(x = 0; x < 0; x++){
+	for(x = 0; x < 9; x++){
 		if(box->squares[x]->possible[number-1] == 0){
+			box->squares[x]->solvable--;
 			box->squares[x]->possible[number-1] = 1;
 		}
 	}

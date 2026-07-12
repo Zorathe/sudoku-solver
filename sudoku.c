@@ -10,10 +10,10 @@ int main(){
 	Square *** sudoku;
 	puzzle = createPuzzle();
 	sudoku = setUpPuzzle(puzzle);
-	printPuzzle(puzzle);
+	printPuzzle(sudoku);
 	checkPuzzle(sudoku);
 	printf("\n\n");
-	printPuzzle(puzzle);
+	printPuzzle(sudoku);
 	return 0;
 
 

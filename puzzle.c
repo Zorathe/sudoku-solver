@@ -8,7 +8,7 @@ Square *** setUpPuzzle(int ** puzzle){
 	sudoku = (Square***)malloc(sizeof(Square**)*9);
 	boxes = createBoxes();
 	for(i = 0; i < SIZE_ROWS; i++){
-		sudoku[i] = (Square*)malloc(sizeof(Square*)*9);
+		sudoku[i] = (Square**)malloc(sizeof(Square*)*9);
 		for(j = 0; j < SIZE_COLUMNS; j++){
 			sudoku[i][j] = (Square*)malloc(sizeof(Square)*9);
 			sudoku[i][j]->number = puzzle[i][j];
@@ -72,7 +72,7 @@ int updateSudoku(Square *** sudoku, int row, int column){
 	return 1;
 }
 
-checkPuzzle(Square *** sudoku){
+int checkPuzzle(Square *** sudoku){
 	int i, j, x;
 
 	for(i = 0; i < SIZE_ROWS; i++){
