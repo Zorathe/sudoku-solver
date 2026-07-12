@@ -11,6 +11,7 @@ int main(){
 	Sudoku * sudoku;
 	puzzle = createPuzzle();
 	sudoku = setUpPuzzle(puzzle);
+	printf("Original Sudoku:\n\n");
 	printPuzzle(sudoku->squares);
 	while(UNSOLVED > 0){
 		progress = checkPuzzle(sudoku->squares, sudoku->boxes);
@@ -20,6 +21,7 @@ int main(){
 		}
 /// 33 solved -> 81-33 = 48
 	}
+	printf("Solved Sudoku:\n\n");
 	printPuzzle(sudoku->squares);
 	return 0;
 }

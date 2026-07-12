@@ -1,7 +1,6 @@
 #include "sudoku.h"
 
 int checkRows(Square *** sudoku, Box ** boxes){
-	printf("We got here!\n");
 	int i, j, k;
 	int sum[9];
 	int place[9];

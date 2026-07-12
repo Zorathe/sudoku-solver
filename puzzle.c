@@ -141,4 +141,5 @@ void printPuzzle(Square *** puzzle){
 			printf("-----------------------------\n");
 		}
 	}
+	printf("\n\n");
 }
