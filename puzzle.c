@@ -80,6 +80,7 @@ checkPuzzle(Square *** sudoku){
 			if(sudoku[i][j]->solvable == 1){
 				solveSquare(sudoku[i][j]);
 				updateSudoku(sudoku, i ,j);
+				updateBoxes(sudoku, i, j);
 			}
 		}
 	}
